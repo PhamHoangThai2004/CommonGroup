@@ -59,6 +59,7 @@ create table LoaiKH(
     MaLKH int primary key not null
 );
 
+
 -- tạo bảng NhaCungCap
 create table NhaCungCap(
     MaNCC int primary key,
@@ -115,6 +116,7 @@ create table DatBan(
     GioKT datetime  not null 
 );
 
+
 -- Tạo khóa chính, khóa ngoài cho bảng DatBan
 ALter table DatBan
     Add Constraint pk_DB PRIMARY KEY (SoBan, MaKH),
@@ -137,6 +139,106 @@ Alter table ChiTietHD
         REFERENCES HoaDon(MaHD),
     Add CONSTRAINT CTHD_SP FOREIGN KEY (MaSP)
         REFERENCES SanPham(MaSP);
+
+-- dữ liệu bảng người dùng
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (1,'admin@gmail.com','adminpassword','Admin','123456');
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (2,'user1@gmail.com','password1','staff','987654');
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (3,'user2@gmail.com','password2','staff','123545');
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (4,'user3@gmail.com','password3','Customer','632354');
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (5,'user4@gmail.com','password4','Customer','234632');
+INSERT INTO NguoiDung (UserID, Email, Matkhau, Vaitro, VerifyCode)
+VALUES (6,'user5@gmail.com','password5','Customer','357341');
+
+-- dữ liệu nhân viên
+INSERT INTO NhanVien (MaNV, TenNV, NgayVaoLam, SDT, Chucvu, UserID)
+VALUES (001,'Nguyen Van A','2021-01-01','0123456789','Manager',1);
+INSERT INTO NhanVien (MaNV, TenNV, NgayVaoLam, SDT, Chucvu, UserID)
+VALUES (002,'Tran Thi B','2024-02-15','9876543210','Staff',2);
+INSERT INTO NhanVien (MaNV, TenNV, NgayVaoLam, SDT, Chucvu, UserID)
+VALUES (003,'Le Chi C','2023-05-20','1122334455','staff',3);
+
+-- dữ liệu sản phẩm
+INSERT INTO SanPham (MaSP, TenSP, Gia, TrangThai, MaNCC)
+VALUES (1001,'pepsi',10000,1,101);
+INSERT INTO SanPham (MaSP, TenSP, Gia, TrangThai, MaNCC)
+VALUES (1002,'coca',10000,1,102);
+INSERT INTO SanPham (MaSP, TenSP, Gia, TrangThai, MaNCC)
+VALUES (1003,'com rang dua bo',70000,0,103);
+INSERT INTO SanPham (MaSP, TenSP, Gia, TrangThai, MaNCC)
+VALUES (1004,'mi tom 2 trung',30000,0,103);
+INSERT INTO SanPham (MaSP, TenSP, Gia, TrangThai, MaNCC)
+VALUES (1005,'pho bo',30000,0,103);
+
+-- dữ liệu khách hàng
+INSERT INTO KhachHang (MaKH, TenKH, NgayThamGia, DoanhSo, DiemTichLuy, UserID, MaLKH)
+VALUES (01,'Nguyen Van M','2023-12-01',2000000,300,4,1);
+INSERT INTO KhachHang (MaKH, TenKH, NgayThamGia, DoanhSo, DiemTichLuy, UserID, MaLKH)
+VALUES (02,'Tran Thi N','2024-03-14',500000,160,5,2);
+INSERT INTO KhachHang (MaKH, TenKH, NgayThamGia, DoanhSo, DiemTichLuy, UserID, MaLKH)
+VALUES (03,'Le Chi O','2024-02-05',300000,90,6,3);
+
+-- dữ liệu nhà cung cấp
+INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SDT, TG_HopTac)
+VALUES (101,'pepsi company','123 Main St','0123456789','2022-01-01');
+INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SDT, TG_HopTac)
+VALUES (102,'coca-cola company','456 Elm St','9876543210','2022-07-15');
+INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SDT, TG_HopTac)
+VALUES (103,'restaurant','789 Maple Ave','1122334455','2022-02-20');
+
+-- dữ liệu hóa đơn 
+INSERT INTO HoaDon (MaHD, NgayLapHD, TrangThai, Code_Voucher, MaKH, SoBan)
+VALUES (100001,'2024-03-27',1,'GA3IH4',01,2);
+INSERT INTO HoaDon (MaHD, NgayLapHD, TrangThai, Code_Voucher, MaKH, SoBan)
+VALUES (100002,'2024-02-9',1,NULL,02,1);
+INSERT INTO HoaDon (MaHD, NgayLapHD, TrangThai, Code_Voucher, MaKH, SoBan)
+VALUES (100003,'2024-01-26',1,'DEF456',03,2);
+INSERT INTO HoaDon (MaHD, NgayLapHD, TrangThai, Code_Voucher, MaKH, SoBan)
+VALUES (100005,'2024-01-14',1,NULL,03,1);
+INSERT INTO HoaDon (MaHD, NgayLapHD, TrangThai, Code_Voucher, MaKH, SoBan)
+VALUES (100004,'2024-01-1',1,'XINCHAO',01,5);
+
+-- nhập dữ liệu voucher
+INSERT INTO Voucher (Code_Voucher, Mota, Phantram, SoLuong, Diem)
+VALUES ('XINCHAO','giam gia 50%',50,20,20);
+INSERT INTO HoaDon (Code_Voucher, Mota, Phantram, SoLuong, Diem)
+VALUES ('GA3IH4','giam gia 20%',20,10,50);
+INSERT INTO HoaDon (Code_Voucher, Mota, Phantram, SoLuong, Diem)
+VALUES ('DEF456','nhan 1 phan qua toi da 200000',NULL,5,50);
+
+-- dữ liệu bàn 
+INSERT INTO Ban (SoBan, ViTri, TrangThai)
+VALUES (1,'giua phong',0);
+INSERT INTO Ban (SoBan, ViTri, TrangThai)
+VALUES (2,'cuoi phong',1);
+INSERT INTO Ban (SoBan, ViTri, TrangThai)
+VALUES (3,'gan cua ra vao',1);
+
+--dữ liệu dặt bàn 
+INSERT INTO DatBan (SoBan, MaKH, GioBD, GioKT)
+VALUES (2,01,'2024-04-28 18:00:00','2024-04-28 20:00:00'); 
+INSERT INTO DatBan (SoBan, MaKH, GioBD, GioKT)
+VALUES (3,02,'2024-04-29 12:00:00','2024-04-29 14:00:00');
+
+--dữ liệu chi tiết hóa đơn
+INSERT INTO ChiTietHD (MaHD, MaSP, SoLuong)
+VALUES (100001,1001,2); 
+INSERT INTO ChiTietHD (MaHD, MaSP, SoLuong)
+VALUES (100002,1003,1);
+INSERT INTO ChiTietHD (MaHD, MaSP, SoLuong)
+VALUES (100003,1002,3);
+
+-- dữ liệu loại khách hàng
+INSERT INTO LoaiKH (MaLKH)
+VALUES (1);
+
+
+
+
 
 
 
